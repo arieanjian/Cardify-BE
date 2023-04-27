@@ -12,7 +12,19 @@
 ### express MVC 架構
 
 ```sh
-npx express-generator
+npx express-generator --no-view
+```
+
+### 加入 nodemon
+
+```sh
+yarn add -D nodemon
+```
+
+### 加入 ts-node
+
+```sh
+yarn add -D ts-node
 ```
 
 ### 加入 TypeScript
@@ -31,6 +43,12 @@ yarn add -D @types/express
 
 ```sh
 yarn add cookie-parser
+```
+
+### 加入 @types/debug -D
+
+```sh
+yarn add @types/debug -D
 ```
 
 ### 加入 @types/cookie-parser
@@ -61,6 +79,14 @@ yarn add --dev @tsconfig/node16
 
 ```sh
 yarn add -D @typescript-eslint/parser
+```
+
+### package.json
+
+```js
+"scripts": {
+    "start": "nodemon ./bin/www.ts"
+  },
 ```
 
 ### 加入 tsconfig.json
