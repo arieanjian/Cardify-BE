@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+import { AddressInfo } from "net";
 import dotenv from "dotenv";
 import app from "../app";
 import debug from "debug";
@@ -86,8 +87,9 @@ function onError(error: NodeJS.ErrnoException): void {
  */
 
 function onListening(): void {
-  const addr = server.address();
+  const addr = server.address() as AddressInfo;
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr?.port;
-  console.log("server = ", server.address());
+  const hostname = addr.address === "::" ? "localhost" : addr.address;
+  console.log(`Server running at http://${hostname}:${addr.port}/`);
   debug("Listening on " + bind);
 }
