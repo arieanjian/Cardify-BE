@@ -3,16 +3,22 @@
 /**
  * Module dependencies.
  */
-
+import dotenv from "dotenv";
 import app from "../app";
 import debug from "debug";
 import http from "http";
+import path from "path";
 
 /**
  * Get port from environment and store in Express.
  */
-
+dotenv.config({
+  path: path.join(__dirname, "../config.env"),
+});
 const port = normalizePort(process.env.PORT || "3000");
+
+console.log("listen port => ", port);
+
 app.set("port", port);
 
 /**
@@ -82,5 +88,6 @@ function onError(error: NodeJS.ErrnoException): void {
 function onListening(): void {
   const addr = server.address();
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr?.port;
+  console.log("server = ", server.address());
   debug("Listening on " + bind);
 }
