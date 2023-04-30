@@ -16,8 +16,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use((req, _, next) => {
+  console.log("Request path --> ", req.headers.host + req.path);
+  next();
+});
+
 app.use("/", indexRouter);
 
-app.use("/rooms", roomRouter);
+// app.use("/rooms", roomRouter);
 
 export default app;
