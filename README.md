@@ -62,7 +62,11 @@ npx express-generator --no-view
   "sourceMap": true, // 生成對應的 source map 文件，方便除錯
   "preserveConstEnums": true, // 保留 const enum 型別，以減少運行時代碼的大小
   "skipLibCheck": true, // 不進行標準庫檢查，以加快編譯速度
-  "strict": true // 啟用所有嚴格的 TypeScript 檢查
+  "strict": true, // 啟用所有嚴格的 TypeScript 檢查
+  "baseUrl": "./",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
   "include": ["./**/*"], // 指定需要進行編譯的檔案或目錄，這裡指定所有的檔案和目錄
   "exclude": ["node_modules", "/*.spec.ts"] // 指定不需要進行編譯的檔案或目錄，這裡排除了 node_modules 目錄和所有 .spec.ts 測試檔案

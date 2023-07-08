@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www.ts"
+    "start": "nodemon ./src/bin/www.ts"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
@@ -11,6 +11,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "^2.0.0",
+    "joi": "^17.9.2",
     "mongoose": "^7.1.0",
     "morgan": "~1.9.1"
   },
@@ -26,6 +27,7 @@
     "dotenv": "^16.0.3",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   }
 }

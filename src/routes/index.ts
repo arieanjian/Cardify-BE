@@ -1,8 +1,9 @@
 import express, { Router } from "express";
-import roomRouter from "../routes/rooms";
+// router
+import userRouter from "./user";
 
 const router: Router = express.Router();
 
-router.use("/room", roomRouter);
+router.use("/user", userRouter);
 
 export default router;

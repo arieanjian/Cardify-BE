@@ -4,8 +4,9 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./connections";
 // routes
-import indexRouter from "./routes/index";
-import roomRouter from "./routes/rooms";
+import routes from "@/routes";
+// middleware
+import verifyToken from "@/middleware/verifyToken";
 
 const app: Application = express();
 // 資料庫連線
@@ -17,12 +18,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, _, next) => {
-  console.log("Request path --> ", req.headers.host + req.path);
+  console.log(`正在調用的 API: ${req.url}`);
   next();
 });
 
-app.use("/", indexRouter);
+// 驗證 token
+app.use((req, res, next) => {
+  verifyToken(req, res, next);
+  // next();
+});
 
-// app.use("/rooms", roomRouter);
+app.use("/", routes);
 
 export default app;
