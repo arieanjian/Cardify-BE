@@ -1,3 +1,4 @@
 import addUser from "./addUser";
+import updateUser from "./updateUser";
 
-export default { addUser };
+export default { addUser, updateUser };

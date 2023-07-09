@@ -2,7 +2,7 @@ import mongoose, { Document } from "mongoose";
 
 declare global {
   interface IUser extends Document {
-    id: string;
+    _id: string;
     email: string;
     username: string;
     password: string;
@@ -12,8 +12,5 @@ declare global {
     createdAt: Date;
     updatedAt: Date;
   }
-
-  interface INewUser
-    extends Pick<IUser, "usernames" | "avatar" | "email" | "password"> {}
 }
 export default {};
