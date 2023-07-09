@@ -4,6 +4,8 @@ import UserModal from "@/models/user";
 // util
 import createResponse from "@/util/createResponse";
 
+type INewUser = Pick<IUser, "username" | "avatar" | "email" | "password">;
+
 const addUser = async (req: Request, res: Response, _: NextFunction) => {
   // 前端傳來準備用來建立使用者的資料
   const newUserInfo: INewUser = req.body;

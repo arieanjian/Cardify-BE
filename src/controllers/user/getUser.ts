@@ -13,6 +13,7 @@ const getUser = async (req: Request, res: Response, _: NextFunction) => {
   const { id = "", username = "" } = req.query as unknown as Iquery;
 
   let query = UserModal.find();
+
   if (username) {
     query = query.where("username").regex(new RegExp(username, "i"));
   }
