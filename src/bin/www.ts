@@ -1,8 +1,3 @@
-#!/usr/bin/env node
-
-/**
- * Module dependencies.
- */
 import { AddressInfo } from "net";
 import dotenv from "dotenv";
 import app from "../app";
@@ -10,9 +5,6 @@ import debug from "debug";
 import http from "http";
 import path from "path";
 
-/**
- * Get port from environment and store in Express.
- */
 dotenv.config({
   path: path.join(__dirname, "../config.env"),
 });
@@ -22,17 +14,8 @@ console.log("listen port => ", port);
 
 app.set("port", port);
 
-/**
- * Create HTTP server.
- */
+const server = http.createServer(app).listen(port);
 
-const server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 
