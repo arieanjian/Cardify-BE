@@ -20,7 +20,7 @@ const getUser = async (req: Request, res: Response, _: NextFunction) => {
   if (id) {
     query = query.where("_id").equals(id);
   }
-  const users: IUser[] = await query.sort();
+  const users: IUser[] = await query.select("-createdAt -updatedAt");
 
   console.log("user collection 查詢筆數 => ", users.length);
 

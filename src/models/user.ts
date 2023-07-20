@@ -38,6 +38,7 @@ const userSchema = new Schema<IUserSchema>(
     lastActiveTime: {
       type: Date,
       default: Date.now,
+      select: false,
     },
   },
   {
