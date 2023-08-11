@@ -1,8 +1,8 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-interface IUserSchema extends IUser {}
+interface ISchema extends IUser {}
 
-const userSchema = new Schema<IUserSchema>(
+const userSchema = new Schema<ISchema>(
   {
     email: {
       type: String,
@@ -48,6 +48,6 @@ const userSchema = new Schema<IUserSchema>(
   }
 );
 
-const UserModal = mongoose.model<IUserSchema>("User", userSchema);
+const UserModal = mongoose.model<ISchema>("User", userSchema);
 
 export default UserModal;
