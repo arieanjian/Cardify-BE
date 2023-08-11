@@ -11,10 +11,10 @@ declare global {
     updatedAt: Date;
   }
 
-  interface IWorkspaceMember extends Document {
+  interface IMember extends Document {
     _id: string;
-    userId: string;
-    workspaceId: string;
+    userId: Types.ObjectId;
+    workspaceId: Types.ObjectId;
     role: "Admin" | "Member" | "Owner";
   }
 }

@@ -11,7 +11,7 @@ const workspaceSchema = new Schema<ISchema>(
     memberIds: [
       {
         type: Schema.Types.ObjectId,
-        ref: "WorkspaceMember",
+        ref: "member",
       },
     ],
     kanbanIds: [
