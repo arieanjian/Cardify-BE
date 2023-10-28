@@ -2,8 +2,9 @@ import mongoose, { Document } from "mongoose";
 
 declare global {
   interface IWorkspace extends Document {
-    _id: string;
+    _id: Types.ObjectId;
     name: string;
+    ownerId: Types.ObjectId;
     memberIds: string[];
     kanbanIds: string[];
     isArchived: boolean;

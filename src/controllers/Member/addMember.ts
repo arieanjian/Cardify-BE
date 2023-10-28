@@ -5,7 +5,7 @@ import memberModal from "@/models/member";
 // util
 import createResponse from "@/util/createResponse";
 
-const insertMember = async (req: Request, res: Response, _: NextFunction) => {
+const addMember = async (req: Request, res: Response, _: NextFunction) => {
   try {
     // 前端傳來準備用來建立使用者的資料(middleware會把資料整理乾淨)
     const Members_data: IMember[] = req.body;
@@ -50,4 +50,4 @@ const insertMember = async (req: Request, res: Response, _: NextFunction) => {
   }
 };
 
-export default insertMember;
+export default addMember;

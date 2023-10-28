@@ -24,7 +24,9 @@ const getUser = async (req: Request, res: Response, _: NextFunction) => {
 
   console.log("user collection 查詢筆數 => ", users.length);
 
-  createResponse(res, 200, "取得user成功", users);
+  const message = users.length === 0 ? "查無使用者" : "取得user成功";
+
+  createResponse(res, 200, message, users);
 };
 
 export default getUser;

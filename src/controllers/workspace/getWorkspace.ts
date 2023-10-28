@@ -17,7 +17,7 @@ const getWorkspace = async (req: Request, res: Response, _: NextFunction) => {
   if (_id) {
     query = query.where("_id").equals(_id);
   }
-
+  console.log("aaa");
   // query = query.populate("memberIds");
 
   const workspaces: IWorkspace[] = await query.select("-createdAt -updatedAt");

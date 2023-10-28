@@ -3,17 +3,19 @@ import cors from "cors";
 import path from "path";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./connections";
+// cors
+import corsOptions from "@/config/cors";
 // routes
 import routes from "@/routes";
 // middleware
-import verifyToken from "@/middleware/verifyToken";
+import verifyAuth from "@/middleware/verifyAuth";
 // util
 import createResponse from "./util/createResponse";
 
 const app: Application = express();
 // 資料庫連線
 connectDB().then(() => console.log("run socket"));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -26,7 +28,7 @@ app.use((req, _, next) => {
 
 // 驗證 token
 app.use((req, res, next) => {
-  verifyToken(req, res, next);
+  verifyAuth(req, res, next);
 });
 
 app.use("/", routes);

@@ -1,3 +1,3 @@
-import signUp from "./signUp";
+import register from "./register";
 
-export default { signUp };
+export default { register };

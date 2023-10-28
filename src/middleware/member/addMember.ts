@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import Joi from "joi";
-// util
+// member
+import { validRoles } from "@/models/member";
 // util
 import getSchemaValue from "@/util/getSchemaValue";
 import createResponse from "@/util/createResponse";
@@ -25,6 +26,11 @@ const schema = Joi.array()
         "any.invalid": "請輸入有效的 memberId",
         "any.required": "please input userId",
       }),
+      role: Joi.string()
+        .valid(...validRoles) // using the shared valid roles
+        .messages({
+          "any.only": `{#label} 只能是以下其中之一: ${validRoles.join(", ")}`,
+        }),
       workspaceId: objectId.messages({
         "any.invalid": "請輸入有效的 workspaceId",
         "any.required": "please input workspaceId",
@@ -36,11 +42,7 @@ const schema = Joi.array()
     "array.min": "至少要有一個成員",
   });
 
-const insertMember = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const addMember = async (req: Request, res: Response, next: NextFunction) => {
   const { value, error } = schema.validate(req.body);
 
   // 驗證有問題就回傳第一個驗證錯誤給前端
@@ -56,4 +58,4 @@ const insertMember = async (
   return next();
 };
 
-export default insertMember;
+export default addMember;
