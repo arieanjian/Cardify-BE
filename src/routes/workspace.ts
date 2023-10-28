@@ -7,8 +7,8 @@ import { default as Middleware } from "@/middleware/workspace";
 const router = express.Router();
 
 router.get("/", Controllers.getWorkspace);
-router.post("/", Middleware.addWorkspace, Controllers.addWorkspace);
-router.post("/insertMember", Middleware.insertMember, Controllers.insertMember);
-router.get("/getMembers", Controllers.getMembers);
+router.get("/getByUserId", Controllers.getByUserId);
+
+router.post("/addWorkspace", Middleware.addWorkspace, Controllers.addWorkspace);
 
 export default router;

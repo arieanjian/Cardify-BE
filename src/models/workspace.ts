@@ -8,6 +8,10 @@ const workspaceSchema = new Schema<ISchema>(
       type: String,
       default: "",
     },
+    ownerId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
     memberIds: [
       {
         type: Schema.Types.ObjectId,

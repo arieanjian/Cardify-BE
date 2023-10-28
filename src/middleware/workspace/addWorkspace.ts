@@ -1,33 +1,19 @@
 import { NextFunction, Request, Response } from "express";
-import mongoose from "mongoose";
 import Joi from "joi";
 // util
 import getSchemaValue from "@/util/getSchemaValue";
 import createResponse from "@/util/createResponse";
-
-// 驗證字串是否為 mongoose ObjectId
-const objectId = Joi.string().custom((value, helpers) => {
-  if (!mongoose.Types.ObjectId.isValid(value)) {
-    return helpers.error("any.invalid");
-  }
-  return value;
-}, "Object ID Validation");
+import { addMemberJoi } from "@/models/member";
 
 // 驗證欄位、給予 default 值
 const schema = Joi.object({
   name: Joi.string().empty("").required().messages({
     "any.required": "please input workspace name",
   }),
-  memberIds: Joi.array()
-    .items(objectId)
+  members: Joi.array()
+    .items(addMemberJoi)
     .messages({
-      "any.invalid": "請輸入有效的 memberId array",
-    })
-    .default([]),
-  kanbanIds: Joi.array()
-    .items(objectId)
-    .messages({
-      "any.invalid": "請輸入有效的 kanbanId array",
+      "any.invalid": "請輸入有效的 members array",
     })
     .default([]),
 }).unknown(true);

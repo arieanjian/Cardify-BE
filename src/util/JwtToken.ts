@@ -6,11 +6,15 @@ dotenv.config({
   path: path.join(__dirname, "../../config.env"),
 });
 
-export const getToken = (id: string) => {
+export const getToken = (user: IUser) => {
   // 產生jwt token
-  const token = jwt.sign({ id: id }, process.env.JWT_SECRET || "", {
-    expiresIn: process.env.JWT_EXPIRES_DAY || "7d",
-  });
+  const token = jwt.sign(
+    { _id: user._id, email: user.email, username: user.username },
+    process.env.JWT_SECRET || "",
+    {
+      expiresIn: process.env.JWT_EXPIRES_DAY || "7d",
+    }
+  );
 
   return token;
 };
