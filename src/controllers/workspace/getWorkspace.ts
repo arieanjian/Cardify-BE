@@ -9,16 +9,13 @@ type Iquery = Pick<IWorkspace, "_id" | "name">;
 const getWorkspace = async (req: Request, res: Response, _: NextFunction) => {
   const { _id = "", name = "" } = req.body as Iquery;
 
-  let query = WorkspaceModal.find();
-
+  let query = WorkspaceModal.find().populate("kanbans");
   if (name) {
     query = query.where("name").regex(new RegExp(name, "i"));
   }
   if (_id) {
     query = query.where("_id").equals(_id);
   }
-  console.log("aaa");
-  // query = query.populate("memberIds");
 
   const workspaces: IWorkspace[] = await query.select("-createdAt -updatedAt");
 

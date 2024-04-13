@@ -1,16 +1,17 @@
 import express, { Application } from "express";
-import cors from "cors";
-import path from "path";
-import cookieParser from "cookie-parser";
+
 import { connectDB } from "./connections";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 // cors
 import corsOptions from "@/config/cors";
+// util
+import createResponse from "./util/createResponse";
+import path from "path";
 // routes
 import routes from "@/routes";
 // middleware
 import verifyAuth from "@/middleware/verifyAuth";
-// util
-import createResponse from "./util/createResponse";
 
 const app: Application = express();
 // 資料庫連線

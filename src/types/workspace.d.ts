@@ -5,6 +5,7 @@ declare global {
     _id: Types.ObjectId;
     name: string;
     ownerId: Types.ObjectId;
+    userIds: Types.ObjectId[];
     memberIds: string[];
     kanbanIds: string[];
     isArchived: boolean;

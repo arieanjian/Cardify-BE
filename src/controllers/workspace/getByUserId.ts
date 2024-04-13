@@ -23,6 +23,7 @@ const getByUserId = async (req: Request, res: Response, _: NextFunction) => {
   const workspaces: IWorkspace[] = await WorkspaceModal.find({
     memberIds: { $in: memberIds },
   });
+  // .populate({ path: "kanbanInfos", select: "name isPinned" });
 
   if (workspaces.length === 0) {
     return createResponse(res, 200, "查無workspace資料", workspaces);

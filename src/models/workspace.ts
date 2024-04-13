@@ -12,6 +12,12 @@ const workspaceSchema = new Schema<ISchema>(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    userIds: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     memberIds: [
       {
         type: Schema.Types.ObjectId,
@@ -21,7 +27,7 @@ const workspaceSchema = new Schema<ISchema>(
     kanbanIds: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Kanban",
+        ref: "kanban",
       },
     ],
     isArchived: {
@@ -33,8 +39,16 @@ const workspaceSchema = new Schema<ISchema>(
     timestamps: true, // generate : createdAt, updatedAt
     versionKey: false,
     toObject: { virtuals: true },
+    toJSON: { virtuals: true },
   }
 );
+
+// workspaceSchema.virtual("kanbanInfos", {
+//   ref: "kanban",
+//   localField: "kanbanIds",
+//   foreignField: "_id",
+//   // justOne: false,
+// });
 
 const WorkspaceModal = mongoose.model<ISchema>("Workspace", workspaceSchema);
 

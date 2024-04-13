@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 // modal
 import workspaceModal from "@/models/workspace";
+import memberModal from "@/models/member";
 // util
 import createResponse from "@/util/createResponse";
-import memberModal from "@/models/member";
 
 interface InewMember {
   role: IMember["role"];
@@ -29,9 +29,13 @@ const addWorkspace = async (req: Request, res: Response, _: NextFunction) => {
       return createResponse(res, 500, "members don't have owner");
     }
 
+    // 紀錄 workspace 下所有 member 的 userId
+    const _userIds: string[] = members.map((member) => member.userInfo._id);
+
     const newWorkspac: IWorkspace = await workspaceModal.create({
       name: name,
       ownerId: owner.userInfo._id,
+      userIds: _userIds,
     });
 
     // step2 建立 Members (帶入workspaceId)
