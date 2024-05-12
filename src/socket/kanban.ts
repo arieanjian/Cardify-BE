@@ -1,7 +1,6 @@
-import { ClientOptions, WebSocket, Server as WebSocketServer } from "ws";
-
-import { Duplex } from "stream";
-import { IncomingMessage } from "http";
+import { WebSocket, Server as WebSocketServer } from "ws";
+// controller
+import { default as Controllers } from "@/controllers/list";
 
 interface Iclient_group {
   [key: string]: WebSocket[];
@@ -19,11 +18,24 @@ wssKanban.on("connection", (ws: WebSocket) => {
   
   showClients();
   // 收到前端訊息
-  ws.on("message", function message(data) {
+  ws.on("message",  async (data) => {
     const {kanbanId} = JSON.parse(data.toString());
     // step1: 將 user 依照看板分類成不同的 client group
     setClientGroup(ws, kanbanId);
     // step2: 發送訊息給當前 client
+    try {
+      const lists = await Controllers.getList(kanbanId);
+      // 將 list 轉成 json 格式
+      const data = {
+        status: 200,
+        msg: "取得list成功",
+        data: lists,
+      }
+      // 將 list 發送給所有 client
+      ws.send(JSON.stringify(data));
+    }  catch (error) {
+      console.error(error);
+    }
     
   });
 });
@@ -47,12 +59,27 @@ const setClientGroup = (ws: WebSocket, kanbanId: string) => {
 }
 
 // 發送訊息給所有 client
-export const sendToKanbanClients = (kanbanId: string, data: any) => {
+export const sendToKanbanClients = async (kanbanId: string) => {
   // 取得指定 kanbanId 的 client group
   const clients = client_group[kanbanId];
   if (!clients) return;
-  // 發送訊息給所有 client
-  clients.forEach((client) => client.send(data)); 
+  // 撈出 kanban 的 所有 list
+  const lists = await Controllers.getList(kanbanId);
+  console.log('lists:', lists)
+  try {
+    // 將 list 轉成 json 格式
+    const data = {
+      status: 200,
+      msg: "取得list成功",
+      data: lists,
+    }
+    // 將 list 發送給所有 client
+    clients.forEach((client) => {
+      client.send(JSON.stringify(data));
+    });
+  }  catch (error) {
+    console.error(error);
+  }
 };
 
 export default wssKanban;
